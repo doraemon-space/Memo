@@ -1,0 +1,6 @@
+Results of search:
+Found "test__1" in: C:\work\source\test2.txt 
+Found "test__2" in: C:\work\source\test2.txt 
+Found "test3__c" in: C:\work\source\GithubMultiTest.cls 
+Found "test3__c" in: C:\work\source\test2 - ÉRÉsÅ[.txt 
+Found "test3__c" in: C:\work\source\test2.txt 
