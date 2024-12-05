@@ -1,0 +1,90 @@
+How to retrieve your entire Salesforce metadata with 2 commands
+https://www.pablogonzalez.io/how-to-retrieve-your-entire-salesforce-metadata-with-2-commands/
+sf project generate manifest --output-dir manifest --name=allMetadata --from-org alias name
+
+
+＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+
+
+Hyperforce調査結果
+
+
+Hyperforceへの移行に際しては、下記を考慮した準備を行っておく必要があります。
+1. ハードコードされた参照の更新
+2. HyperforceのIP許可リストの望ましい代替案の更新
+3. Hyperforce上のSalesforceサービスへのアクセスを維持すること
+
+
+
+Hyperforceへの移行に関しては下記のポイントをご確認しておくことが推奨されています。
+1. Hyperforceで利用できないサービス
+   Salesforce Express Connectを利用できない
+
+2. SNI（サーバ名表示）に関する要件の理解
+   システム連携(API)において、SNI（サーバ名表示）でホストを指定しない場合、SNIを含める必要があります。
+
+3. IPアドレスを使用したフィルタリング対応の検討
+   IPアドレスを使用したフィルタリング（IPアドレス許可リスト）をされているお客様にご確認をいただきたい
+   （Salesforce側の設定ではなく、お客様の会社のファイアウォールや企業ネットワーク、メールフィルターの設定をご確認いただく必要があります）
+
+   Salesforce Core サービス - 許可すべき IP アドレスとドメイン」に記載のすべてのIPアドレス範囲に加えて、
+   必須ドメインに含まれるすべてのドメインを許可頂く必要がございます。
+
+4. Marketing Cloudを利用の場合、
+   Marketing Cloud Connect でテナント固有の OAuth エンドポイントを有効にする
+   エンドポイントをテナント固有のものに更新
+
+＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+
+
+参照：Hyperforceの概要と移行について
+https://successjp.salesforce.com/article/NAI-000186
+
+本件、調査とご対応につきましては工数を使用して弊社にてご対応する事も可能ですので必要な場合はご連絡お願いいたします。
+ご不明点などございましたらお気軽にご連絡ください。
+よろしくお願いいたします。
+
+
+
+参考ケース
+https://sbproj.backlog.jp/view/MDI_SBPJ-537#comment-1466841290
+
+
+
+Salesforceシステムの最適化に向けてHyperForceへの組織移行が計画されております。
+HyperForceとは何かにつきましては、下部記載の参照URLをご確認ください。
+移行期間については、 2024/12/7～2025/12/31 となっております。
+移行日の30日前に確定メールが届く事となっており自動的にHyperForceへ組織移行が行われることとなっております。
+
+Hyperforce移行にあたり、データセンターがAWS上に変わることにより、ネットワーク構成が変わります。
+そこで、貴社内ネットワークについてご確認いただきたい点がございます。
+もし、下記において、該当するものがあるかご確認お願い致します。
+
+▪ハードコードされた参照がありますでしょうか？
+
+▪Salesforce Express Connectをご利用でしょうか？
+ 利用している場合、代替のサービス検討が必要です。
+
+▪貴社内のネットワークやファイヤーウォールの設定でSalesforceのIPアドレスへのアクセスを許可しているでしょうか？
+ SalesforceのIP範囲(https://help.salesforce.com/s/articleView?language=en_US&id=000384438&type=1)で
+ フィルタしている場合、URL/ドメインを利用したフィルタの仕組みにご変更いただく必要がございます。
+
+▪貴社内のメールサーバーの設定でSalesforceサービスからのメールをフィルタリングするために、
+ IPアドレス許可リストを利用しているでしょうか？
+ フィルタリングしている場合、セキュリティ要件の変更をご検討いただく必要がございます。
+ 
+▪証明書を発行されていますでしょうか？
+ 発行されている場合、証明書のSNI拡張対応が必要です。
+ 
+▪Marketing Cloudをご利用でしょうか？
+ Marketing Cloud Connect でテナント固有の OAuth エンドポイントを有効にする必要があります。
+
+参照：Hyperforceの概要と移行について(https://successjp.salesforce.com/article/NAI-000186)
+
+
+なお、移行作業のメンテナンス中、Salesforceがリードオンリーモードに切り替わるため、
+データの書き込みができなくなります。このため、以下の影響が生じる可能性があります。
+▪運用業務の一時停止
+▪各種定時実行バッチの時間変更、またはスキップ
+
+
